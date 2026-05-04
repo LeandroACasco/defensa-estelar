@@ -12,29 +12,30 @@
 
 ## 🎮 Jugá ahora
 
-👉 **[defensa-estelar.github.io](https://tuusuario.github.io/defensa-estelar)**
+👉 **[LeandroACasco.github.io/defensa-estelar](https://LeandroACasco.github.io/defensa-estelar)**
 
 ---
 
-## 📸 Capturas
+## 📸 Mapas
 
 | Mapa 1 — Zigzag | Mapa 2 — Serpiente | Mapa 3 — Cruce |
-|---|---|---|
-| *(screenshot)* | *(screenshot)* | *(screenshot)* |
+|:---:|:---:|:---:|
+| ![Mapa 1](screenshots/map1.png) | ![Mapa 2](screenshots/map2.png) | ![Mapa 3](screenshots/map3.png) |
+| Camino en S con curvas cerradas | Recorre el mapa en 3 filas | Forma de cruz con intersección |
 
 ---
 
 ## ⚙️ Características
 
-- 🗺️ **3 mapas** con caminos distintos que se desbloquean progresivamente
+- 🗺️ **3 mapas** con caminos distintos que progresan automáticamente
 - 🔫 **5 torres** con sprites pixel art y 3 niveles de mejora cada una
-- 📡 **Sistema de remesas** — enviás créditos entre olas para desbloquear torres nuevas
+- 📡 **Sistema de remesas** — enviás créditos entre olas para desbloquear torres
 - 👾 **5 tipos de enemigos** — Scout, Trooper, Tank, Speeder y Boss
 - 🔊 **Sonidos generados por Web Audio API** — sin archivos externos
 - 💥 **Números de daño flotantes** y partículas de explosión
 - 📊 **Resumen de ola** con estadísticas detalladas
 - 🏆 **Leaderboard online** compartido entre jugadores
-- 📱 **Soporte táctil en 2 pasos** para móvil (preview antes de colocar)
+- 📱 **Soporte táctil en 2 pasos** para móvil
 - ⚡ **Modo velocidad x2**
 - 🎨 **Toggle sprites / vectores** en cualquier momento
 
@@ -73,45 +74,45 @@
 
 ## 🚀 Instalación local
 
-No requiere servidor ni build tools. Solo abrí el archivo:
-
 ```bash
-git clone https://github.com/tuusuario/defensa-estelar.git
+git clone https://github.com/LeandroACasco/defensa-estelar.git
 cd defensa-estelar
-# Abrí index.html en tu navegador
 open index.html
 ```
 
+No requiere servidor ni build tools.
+
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Estructura
 
 ```
 defensa-estelar/
-├── index.html       # Juego completo (autocontenido)
-├── README.md        # Este archivo
-└── LICENSE          # MIT
+├── index.html          # Juego completo (autocontenido, ~350KB)
+├── README.md           # Este archivo
+├── LICENSE             # MIT
+└── screenshots/
+    ├── map1.png
+    ├── map2.png
+    └── map3.png
 ```
-
-Todo el juego está en un único archivo HTML autocontenido — sprites en base64, audio generado por código, sin frameworks ni librerías externas.
 
 ---
 
 ## 🛠️ Tecnologías
 
 - **HTML5 Canvas** — renderizado del juego
-- **Web Audio API** — sonidos generados proceduralmente
-- **JavaScript vanilla** — sin frameworks
+- **Web Audio API** — sonidos generados proceduralmente  
+- **JavaScript vanilla** — sin frameworks ni dependencias
 - **CSS3** — UI y animaciones
-- **Persistent Storage API** — leaderboard online (Claude Artifacts)
 
 ---
 
 ## 🎨 Créditos
 
-- Sprites generados con **Gemini Image Generation**
-- Concepto original: **Star Defence** (Glu Mobile, 2004) — Java J2ME
-- Desarrollado con asistencia de **Claude (Anthropic)**
+- Sprites: **Gemini Image Generation**
+- Concepto original: **Star Defence** — Glu Mobile, 2004 (Java J2ME)
+- Desarrollado con **Claude** (Anthropic)
 
 ---
 
@@ -122,5 +123,6 @@ MIT — libre para usar, modificar y distribuir.
 ---
 
 <div align="center">
-  <b>⭐ Si te gustó el juego, dejá una estrella en el repo ⭐</b>
+  <b>⭐ Si te gustó el juego, dejá una estrella ⭐</b><br><br>
+  <a href="https://github.com/LeandroACasco/defensa-estelar">github.com/LeandroACasco/defensa-estelar</a>
 </div>
