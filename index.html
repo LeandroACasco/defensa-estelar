@@ -131,6 +131,53 @@ input:checked + .toggle-track::after{left:16px;background:#7ecfff}
 #lb-name-input{background:#0a1830;border:1px solid #4a8abf;color:#fff;
   padding:5px 10px;border-radius:3px;font-family:'Courier New',monospace;
   font-size:12px;width:160px;margin-right:6px}
+
+/* ── MAIN MENU ── */
+#main-menu{position:absolute;top:0;left:0;width:100%;height:100%;
+  background:#050a14;z-index:30;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:hidden}
+#main-menu.hide{display:none}
+#menu-canvas{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.5}
+#menu-content{position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;gap:10px;padding:20px}
+#menu-title{font-family:'Courier New',monospace;font-size:clamp(22px,5vw,38px);
+  font-weight:bold;color:#ffcc44;text-shadow:0 0 20px #ffaa00,0 0 40px #ff880066;
+  letter-spacing:3px;text-align:center;animation:titlePulse 2s ease-in-out infinite}
+#menu-subtitle{font-family:'Courier New',monospace;font-size:clamp(9px,2vw,12px);
+  color:#4a8abf;letter-spacing:4px;margin-bottom:10px;text-align:center}
+@keyframes titlePulse{0%,100%{text-shadow:0 0 20px #ffaa00,0 0 40px #ff880066}
+  50%{text-shadow:0 0 30px #ffdd00,0 0 60px #ffaa0099}}
+.menu-btn{font-family:'Courier New',monospace;font-size:clamp(11px,2.5vw,14px);
+  padding:10px 32px;border-radius:4px;cursor:pointer;letter-spacing:2px;
+  transition:all 0.15s;width:200px;text-align:center}
+#btn-play{background:#1a4a8a;border:2px solid #7ecfff;color:#fff;
+  box-shadow:0 0 12px #4a8abf55;animation:btnGlow 1.5s ease-in-out infinite}
+#btn-play:hover{background:#2a6abf;box-shadow:0 0 20px #7ecfff88;transform:scale(1.04)}
+@keyframes btnGlow{0%,100%{box-shadow:0 0 10px #4a8abf55}50%{box-shadow:0 0 22px #7ecfff88}}
+#btn-lb{background:#0a1830;border:1px solid #4a8abf;color:#7ecfff}
+#btn-lb:hover{background:#1a3a6a;border-color:#7ecfff}
+#btn-how{background:#0a1830;border:1px solid #4a8abf;color:#7ecfff}
+#btn-how:hover{background:#1a3a6a;border-color:#7ecfff}
+.menu-sep{width:180px;height:1px;background:linear-gradient(90deg,transparent,#1a4080,transparent);margin:4px 0}
+#menu-version{font-family:'Courier New',monospace;font-size:9px;color:#1a3a6a;
+  position:absolute;bottom:8px;right:10px}
+#menu-stars{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+
+/* How to play overlay */
+#how-panel{position:absolute;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,5,18,0.97);z-index:31;display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:16px}
+#how-panel.show{display:flex}
+#how-panel h2{font-family:'Courier New',monospace;color:#ffcc44;font-size:16px;margin-bottom:12px}
+.how-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;max-width:360px;width:100%}
+.how-num{background:#1a4a8a;color:#7ecfff;font-family:'Courier New',monospace;
+  font-size:11px;font-weight:bold;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.how-text{font-family:'Courier New',monospace;font-size:10px;color:#aaa;line-height:1.5}
+.how-text b{color:#7ecfff}
+#how-close{background:#1a4a8a;border:1px solid #7ecfff;color:#fff;
+  padding:7px 24px;border-radius:4px;cursor:pointer;font-size:12px;
+  font-family:'Courier New',monospace;margin-top:14px}
 </style>
 </head>
 <body>
@@ -201,6 +248,38 @@ input:checked + .toggle-track::after{left:16px;background:#7ecfff}
   </div>
   <div id="info-bar">Seleccioná una torre y tocá la grilla para colocarla.</div>
 
+
+  <!-- Main Menu -->
+  <div id="main-menu">
+    <canvas id="menu-canvas"></canvas>
+    <div id="menu-content">
+      <div style="font-family:'Courier New',monospace;font-size:10px;color:#4a8abf;letter-spacing:3px;margin-bottom:4px">★ ★ ★</div>
+      <div id="menu-title">DEFENSA ESTELAR</div>
+      <div id="menu-subtitle">TOWER DEFENSE · SCI-FI</div>
+      <div class="menu-sep"></div>
+      <button class="menu-btn" id="btn-play" onclick="startFromMenu()">▶ JUGAR</button>
+      <button class="menu-btn" id="btn-lb" onclick="openLBFromMenu()">🏆 RÉCORDS</button>
+      <button class="menu-btn" id="btn-how" onclick="showHow()">? CÓMO JUGAR</button>
+      <div class="menu-sep"></div>
+      <div style="font-family:'Courier New',monospace;font-size:9px;color:#1a3060;text-align:center;line-height:1.8">
+        3 MAPAS · 5 TORRES · 9 OLAS CADA UNO<br>INSPIRADO EN STAR DEFENCE (J2ME 2004)
+      </div>
+    </div>
+    <div id="menu-version">v1.0 · LeandroACasco</div>
+  </div>
+
+  <!-- How to play -->
+  <div id="how-panel">
+    <h2>🕹️ CÓMO JUGAR</h2>
+    <div class="how-row"><div class="how-num">1</div><div class="how-text">Seleccioná una <b>torre</b> del panel inferior y hacé click en la grilla para colocarla.</div></div>
+    <div class="how-row"><div class="how-num">2</div><div class="how-text">Presá <b>INICIAR</b> para comenzar la primera ola de enemigos.</div></div>
+    <div class="how-row"><div class="how-num">3</div><div class="how-text">Entre olas, <b>enviá remesas</b> para desbloquear torres más poderosas.</div></div>
+    <div class="how-row"><div class="how-num">4</div><div class="how-text">Hacé click en una torre colocada para <b>mejorarla</b> (hasta nivel 3) o venderla.</div></div>
+    <div class="how-row"><div class="how-num">5</div><div class="how-text">Completá las <b>9 olas de los 3 mapas</b> sin perder todas tus vidas.</div></div>
+    <div class="how-row"><div class="how-num">💡</div><div class="how-text"><b>Consejo:</b> el Hielo ralentiza, el Misil hace daño en área, la Tesla encadena a varios enemigos a la vez.</div></div>
+    <button id="how-close" onclick="hideHow()">◀ VOLVER</button>
+  </div>
+
   <!-- Remesa -->
   <div id="remesa">
     <h2>📡 CENTRAL DE REMESAS</h2>
@@ -244,6 +323,117 @@ input:checked + .toggle-track::after{left:16px;background:#7ecfff}
 </div>
 
 <script>
+
+// ── MAIN MENU ─────────────────────────────────────────────────────
+(function initMenu(){
+  const mc = document.getElementById('menu-canvas');
+  const mctx = mc.getContext('2d');
+  let stars = [], shootingStars = [], menuAnimId;
+
+  function resizeMenuCanvas(){
+    const wrap = document.getElementById('game-container');
+    mc.width = wrap.clientWidth;
+    mc.height = wrap.clientHeight;
+  }
+
+  function genStars(){
+    stars = [];
+    for(let i=0;i<120;i++){
+      stars.push({
+        x:Math.random()*mc.width, y:Math.random()*mc.height,
+        r:Math.random()*1.5+0.3, speed:Math.random()*0.3+0.05,
+        twinkle:Math.random()*Math.PI*2, alpha:Math.random()*0.6+0.3
+      });
+    }
+  }
+
+  function spawnShooting(){
+    if(Math.random()<0.012){
+      shootingStars.push({
+        x:Math.random()*mc.width, y:Math.random()*mc.height*0.5,
+        vx:3+Math.random()*4, vy:1+Math.random()*2,
+        life:1, maxLife:1
+      });
+    }
+  }
+
+  function animMenu(ts){
+    mctx.clearRect(0,0,mc.width,mc.height);
+    // Starfield
+    stars.forEach(s=>{
+      s.twinkle+=0.04; s.y+=s.speed;
+      if(s.y>mc.height){s.y=0;s.x=Math.random()*mc.width;}
+      const a=s.alpha*(0.7+0.3*Math.sin(s.twinkle));
+      mctx.fillStyle=`rgba(180,210,255,${a})`;
+      mctx.beginPath();mctx.arc(s.x,s.y,s.r,0,Math.PI*2);mctx.fill();
+    });
+    // Shooting stars
+    spawnShooting();
+    shootingStars = shootingStars.filter(s=>{
+      s.x+=s.vx; s.y+=s.vy; s.life-=0.025;
+      if(s.life<=0) return false;
+      const grad=mctx.createLinearGradient(s.x,s.y,s.x-s.vx*8,s.y-s.vy*8);
+      grad.addColorStop(0,`rgba(180,220,255,${s.life})`);
+      grad.addColorStop(1,'rgba(180,220,255,0)');
+      mctx.strokeStyle=grad; mctx.lineWidth=1.5;
+      mctx.beginPath();mctx.moveTo(s.x,s.y);mctx.lineTo(s.x-s.vx*8,s.y-s.vy*8);mctx.stroke();
+      return true;
+    });
+    // Nebula glow in corner
+    const grad2=mctx.createRadialGradient(mc.width*0.8,mc.height*0.2,0,mc.width*0.8,mc.height*0.2,mc.width*0.4);
+    grad2.addColorStop(0,'rgba(30,50,120,0.12)');
+    grad2.addColorStop(1,'rgba(0,0,0,0)');
+    mctx.fillStyle=grad2;
+    mctx.fillRect(0,0,mc.width,mc.height);
+    menuAnimId=requestAnimationFrame(animMenu);
+  }
+
+  window.showMainMenu = function(){
+    const menu=document.getElementById('main-menu');
+    menu.classList.remove('hide');
+    resizeMenuCanvas(); genStars();
+    if(menuAnimId) cancelAnimationFrame(menuAnimId);
+    menuAnimId=requestAnimationFrame(animMenu);
+  };
+  window.hideMainMenu = function(){
+    document.getElementById('main-menu').classList.add('hide');
+    if(menuAnimId){cancelAnimationFrame(menuAnimId);menuAnimId=null;}
+  };
+  window.startFromMenu = function(){
+    hideMainMenu();
+    // Show the game msg (start screen)
+    document.getElementById('msg').style.display='block';
+    AU.play('waveStart',999);
+  };
+  window.openLBFromMenu = async function(){
+    hideMainMenu();
+    await openLB();
+    // Patch LB close to go back to menu
+    const origClose = window.closeLB;
+    window.closeLB = function(){
+      origClose();
+      showMainMenu();
+      window.closeLB = origClose;
+    };
+  };
+  window.showHow = function(){
+    document.getElementById('how-panel').classList.add('show');
+  };
+  window.hideHow = function(){
+    document.getElementById('how-panel').classList.remove('show');
+  };
+
+  // Start with main menu
+  window.addEventListener('load', ()=>{
+    setTimeout(showMainMenu, 100);
+  });
+  window.addEventListener('resize', ()=>{
+    if(!document.getElementById('main-menu').classList.contains('hide')){
+      resizeMenuCanvas(); genStars();
+    }
+  });
+})();
+
 // ── MAPS ──────────────────────────────────────────────────────────
 const MAPS = [
   // Map 0: original zigzag
@@ -915,6 +1105,8 @@ function toggleSpeed(){
 }
 function setInfo(txt){document.getElementById('info-bar').textContent=txt;}
 function showMsg(title,body,btn){
+  // Add menu button for game end screens
+  const isEnd = title.includes('GAME OVER')||title.includes('VICTORIA');
   document.getElementById('msg-title').innerHTML=title;
   document.getElementById('msg-body').innerHTML=body;
   document.getElementById('msg').querySelector('button').innerHTML='&#9654; '+btn;
@@ -1137,6 +1329,7 @@ document.getElementById('msg').style.display='block';
 }
 function toggleMute(){const m=AU.toggleMute();document.getElementById('mute-btn').textContent=m?'🔇':'🔊';}
 function startGame(){
+  hideMainMenu && hideMainMenu();
   document.getElementById('msg').style.display='none';
   state={lives:20,gold:150,score:0,wave:0,towers:[],enemies:[],bullets:[],particles:[],
     waveActive:false,gameOver:false,won:false,selectedType:'gun',selectedTower:null,
@@ -1158,6 +1351,117 @@ function startGame(){
   setInfo('Colocá torres y presá START para comenzar!');
   drawIconPreviews();
 }
+
+
+// ── MAIN MENU ─────────────────────────────────────────────────────
+(function initMenu(){
+  const mc = document.getElementById('menu-canvas');
+  const mctx = mc.getContext('2d');
+  let stars = [], shootingStars = [], menuAnimId;
+
+  function resizeMenuCanvas(){
+    const wrap = document.getElementById('game-container');
+    mc.width = wrap.clientWidth;
+    mc.height = wrap.clientHeight;
+  }
+
+  function genStars(){
+    stars = [];
+    for(let i=0;i<120;i++){
+      stars.push({
+        x:Math.random()*mc.width, y:Math.random()*mc.height,
+        r:Math.random()*1.5+0.3, speed:Math.random()*0.3+0.05,
+        twinkle:Math.random()*Math.PI*2, alpha:Math.random()*0.6+0.3
+      });
+    }
+  }
+
+  function spawnShooting(){
+    if(Math.random()<0.012){
+      shootingStars.push({
+        x:Math.random()*mc.width, y:Math.random()*mc.height*0.5,
+        vx:3+Math.random()*4, vy:1+Math.random()*2,
+        life:1, maxLife:1
+      });
+    }
+  }
+
+  function animMenu(ts){
+    mctx.clearRect(0,0,mc.width,mc.height);
+    // Starfield
+    stars.forEach(s=>{
+      s.twinkle+=0.04; s.y+=s.speed;
+      if(s.y>mc.height){s.y=0;s.x=Math.random()*mc.width;}
+      const a=s.alpha*(0.7+0.3*Math.sin(s.twinkle));
+      mctx.fillStyle=`rgba(180,210,255,${a})`;
+      mctx.beginPath();mctx.arc(s.x,s.y,s.r,0,Math.PI*2);mctx.fill();
+    });
+    // Shooting stars
+    spawnShooting();
+    shootingStars = shootingStars.filter(s=>{
+      s.x+=s.vx; s.y+=s.vy; s.life-=0.025;
+      if(s.life<=0) return false;
+      const grad=mctx.createLinearGradient(s.x,s.y,s.x-s.vx*8,s.y-s.vy*8);
+      grad.addColorStop(0,`rgba(180,220,255,${s.life})`);
+      grad.addColorStop(1,'rgba(180,220,255,0)');
+      mctx.strokeStyle=grad; mctx.lineWidth=1.5;
+      mctx.beginPath();mctx.moveTo(s.x,s.y);mctx.lineTo(s.x-s.vx*8,s.y-s.vy*8);mctx.stroke();
+      return true;
+    });
+    // Nebula glow in corner
+    const grad2=mctx.createRadialGradient(mc.width*0.8,mc.height*0.2,0,mc.width*0.8,mc.height*0.2,mc.width*0.4);
+    grad2.addColorStop(0,'rgba(30,50,120,0.12)');
+    grad2.addColorStop(1,'rgba(0,0,0,0)');
+    mctx.fillStyle=grad2;
+    mctx.fillRect(0,0,mc.width,mc.height);
+    menuAnimId=requestAnimationFrame(animMenu);
+  }
+
+  window.showMainMenu = function(){
+    const menu=document.getElementById('main-menu');
+    menu.classList.remove('hide');
+    resizeMenuCanvas(); genStars();
+    if(menuAnimId) cancelAnimationFrame(menuAnimId);
+    menuAnimId=requestAnimationFrame(animMenu);
+  };
+  window.hideMainMenu = function(){
+    document.getElementById('main-menu').classList.add('hide');
+    if(menuAnimId){cancelAnimationFrame(menuAnimId);menuAnimId=null;}
+  };
+  window.startFromMenu = function(){
+    hideMainMenu();
+    // Show the game msg (start screen)
+    document.getElementById('msg').style.display='block';
+    AU.play('waveStart',999);
+  };
+  window.openLBFromMenu = async function(){
+    hideMainMenu();
+    await openLB();
+    // Patch LB close to go back to menu
+    const origClose = window.closeLB;
+    window.closeLB = function(){
+      origClose();
+      showMainMenu();
+      window.closeLB = origClose;
+    };
+  };
+  window.showHow = function(){
+    document.getElementById('how-panel').classList.add('show');
+  };
+  window.hideHow = function(){
+    document.getElementById('how-panel').classList.remove('show');
+  };
+
+  // Start with main menu
+  window.addEventListener('load', ()=>{
+    setTimeout(showMainMenu, 100);
+  });
+  window.addEventListener('resize', ()=>{
+    if(!document.getElementById('main-menu').classList.contains('hide')){
+      resizeMenuCanvas(); genStars();
+    }
+  });
+})();
 
 // ── MAPS ──────────────────────────────────────────────────────────
 
